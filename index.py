@@ -28,6 +28,8 @@ class BookCricket:
         self.score_button = Button(self.windows, text="Play!!", width=20, command=self.scorer)
         self.score_button.place(relx=0.5, rely=0.5, anchor=CENTER)
 
+        self.score_timeline_label = Label(self.windows, text="Timeline", bg='white')
+        self.score_timeline_label.place(relx=0.5, rely=0.75, anchor=CENTER)
         self.score_timeline = Text(self.windows, width=40, height=1, font=("arial", 14, "bold"), state=DISABLED)
         self.score_timeline.place(relx=0.5, rely=0.8, anchor=CENTER)
 
