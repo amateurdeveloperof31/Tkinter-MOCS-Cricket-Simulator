@@ -13,7 +13,7 @@ Requirements
 
 Installation
 1. Clone the repository or copy the code into a Python file.
-2. Run the file using Python (e.g., python book_cricket.py).
+2. Run the file using Python (e.g., python index.py).
 
 Usage
 1. Launch the game by running the Python file.
