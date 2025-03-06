@@ -5,9 +5,7 @@ Book Cricket is a simple text-based game implemented using Tkinter. The game sim
 
 Features
 - Simple and intuitive interface
-- Random scoring system (0-6 runs per ball)
-- Wicket system (5 runs scores a wicket)
-- Real-time scoreboard and score timeline updates
+- Random scoring system with Real-time scoreboard and score timeline updates
 
 Requirements
 - Python 3.x
