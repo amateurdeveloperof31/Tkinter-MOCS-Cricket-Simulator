@@ -1,7 +1,6 @@
 Tkinter Book Cricket
 
-Book Cricket is a simple text-based game implemented using Tkinter.
-The game simulates a cricket match where the player scores runs by clicking the "Play!!" button.
+A simple text-based game implemented using Tkinter.
 
 Features
 - Simple and intuitive interface
