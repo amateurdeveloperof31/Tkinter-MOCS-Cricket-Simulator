@@ -13,7 +13,7 @@ Requirements
 - Tkinter library
 
 Installation
-1. Clone the repository using git clone [https://github.com/your-username/Book-Cricket.git](https://github.com/amateurdeveloperof31/Tkinter-Book-Cricket.git)
+1. Clone the repository using git clone https://github.com/amateurdeveloperof31/Tkinter-Book-Cricket.git
 2. Navigate to the project directory using cd Book-Cricket
 3. Run the game using python book_cricket.py
 
