@@ -1,11 +1,11 @@
 Book Cricket
 
-A digital version of the classic "Book Cricket" game, where two teams compete to score runs based on the pages of a book.
+A digital version of the classic "Book Cricket" game, where two teams compete to score runs based on the random numbers.
 
 Features
 - Simple and intuitive interface
 - Supports two teams with customizable names and colors
-- Automatic scoring system based on page numbers
+- Automatic scoring system
 - Option to select number of overs
 
 Requirements
