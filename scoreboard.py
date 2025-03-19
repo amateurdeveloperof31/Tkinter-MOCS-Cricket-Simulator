@@ -33,10 +33,10 @@ class Scoreboarde(Toplevel):
         self.teamB_color = all_match_details["teamB_color"]
         self.innings_overs = all_match_details["match_overs"]
 
-        self.bat1 = "teamA"
-        self.bat2 = "teamB"
         self.current_innnings = None
         self.innings_number = 1
+        self.batting_team_name = None
+        self.bowling_team_name = None
 
         self.inning_runs = 0
         self.inning_wickets = 0
@@ -121,7 +121,7 @@ class Scoreboarde(Toplevel):
         self.score_label = Label(self, width=5, height=1, font=("arial", 35, "bold"), justify=CENTER)
         self.score_label.place(relx=0.5, rely=0.55, anchor=CENTER)
 
-        self.score_button = Button(self, text="Play!!", width=20, command=self.scorer)
+        self.score_button = Button(self, text="Play!!", width=20, command=self.checker)
         self.score_button.place(relx=0.5, rely=0.65, anchor=CENTER)
 
         self.score_timeline_label = Label(self, text="Timeline", bg='white')
@@ -132,10 +132,14 @@ class Scoreboarde(Toplevel):
         if ((toss_winner == self.teamA_name and bat_ball_selection == "bat") or
                 (toss_winner == self.teamB_name and bat_ball_selection == "bowl")):
             self.current_innings = "teamA"
+            self.batting_team_name = self.teamA_name
+            self.bowling_team_name = self.teamB_name
             bat_x = 0.4
             ball_x = 0.6
         else:
             self.current_innings = "teamB"
+            self.batting_team_name = self.teamB_name
+            self.bowling_team_name = self.teamA_name
             bat_x = 0.6
             ball_x = 0.4
 
@@ -148,9 +152,66 @@ class Scoreboarde(Toplevel):
         self.main_window.ball_icon_label = Label(self, image=self.ball_image, bg='white')
         self.main_window.ball_icon_label.place(relx=ball_x, rely=0.22, anchor=CENTER)
 
-# -------------------------------------------------- Main Scorer -------------------------------------------------------
+# -------------------------------------------------- Match Status Checker -------------------------------------------------------
+    def checker(self):
+        if self.innings_number == 1: # 1st Innings
+            if (self.inning_balls < self.total_balls) and (self.inning_wickets < 10):
+                self.scorer()
+            else:
+                self.innings_number = 2
+
+                self.batting_team_score = self.inning_runs
+                self.batting_team_wickets = self.inning_wickets
+
+                messagebox.showinfo("End of 1st Innings",
+                        f"{self.batting_team_name} has scored {self.inning_runs} for {self.inning_wickets}.",
+                                    parent=self)
+
+                if self.current_innings == "teamA":
+                    self.current_innings = "teamB"
+                    self.batting_team_name = self.teamB_name
+                    self.bowling_team_name = self.teamA_name
+                else:
+                    self.current_innings = "teamA"
+                    self.batting_team_name = self.teamA_name
+                    self.bowling_team_name = self.teamB_name
+
+                self.bowling_team_score = self.batting_team_score
+                self.bowling_team_wickets = self.batting_team_wickets
+
+                self.target = self.inning_runs + 1
+                messagebox.showinfo("Target",
+                                    f"Target for {self.batting_team_name} is {self.target}", parent=self)
+
+                self.inning_runs = 0
+                self.inning_wickets = 0
+                self.inning_balls = 0
+                self.total_balls = self.innings_overs * 6
+
+        else: # 2nd Innings
+            if (self.inning_balls < self.total_balls) and (self.inning_wickets < 10) and (self.inning_runs < self.target):
+                self.scorer()
+            else:
+                self.batting_team_score = self.inning_runs
+                self.batting_team_wickets = self.inning_wickets
+
+                messagebox.showinfo("End of 2nd Innings",
+                            f"{self.batting_team_name} has scored {self.inning_runs} for {self.inning_wickets}",
+                                    parent=self)
+
+                self.score_button.config(state=DISABLED)
+                self.teamB_score = self.inning_runs
+
+                if self.bowling_team_score > self.batting_team_score:
+                    runs_win = self.bowling_team_score - self.batting_team_score
+                    messagebox.showinfo("End of the Match",
+                                    f"{self.bowling_team_name} has won by {runs_win} runs.", parent=self)
+                elif self.bowling_team_score < self.batting_team_score:
+                    wickets_win = 10 - self.batting_team_wickets
+                    messagebox.showinfo("End of the Match",
+                                    f"{self.batting_team_name} has won by {wickets_win} wickets.", parent=self)
+# ---------------------------------------------------- Scorer ----------------------------------------------------------
     def scorer(self):
-        if self.inning_balls < self.total_balls:
             self.inning_balls += 1
             overs = f"{int(self.inning_balls/6)}.{(self.inning_balls % 6)}"
             ball_score = random.randint(0,6)
@@ -174,48 +235,6 @@ class Scoreboarde(Toplevel):
             self.score_timeline.insert(END, f"{ball_score} ")
             self.score_timeline.config(state=DISABLED)
 
-        else:
-            if self.innings_number == 1:
-                self.innings_number = 2
-                messagebox.showinfo("End of 1st Innings",
-                        f"{self.current_innings} has scored {self.inning_runs} for {self.inning_wickets}",
-                                    parent=self)
-                if self.current_innings == "teamA":
-                    self.teamA_score = self.inning_runs
-                    self.teamA_wickets = self.inning_wickets
-                    self.current_innings = "teamB"
-                else:
-                    self.teamB_score = self.inning_runs
-                    self.teamB_wickets = self.inning_wickets
-                    self.current_innings = "teamA"
-                self.target = self.inning_runs + 1
-                messagebox.showinfo("Target",
-                                    f"Target for {self.current_innings} is {self.target}", parent=self)
-
-                self.inning_runs = 0
-                self.inning_wickets = 0
-                self.inning_balls = 0
-                self.total_balls = self.innings_overs * 6
-
-            else:
-                self.score_button.config(state=DISABLED)
-                self.teamB_score = self.inning_runs
-
-                if self.teamA_score > self.teamB_score:
-                    runs_win = self.teamA_score - self.teamB_score
-                    messagebox.showinfo("End of the Match",
-                            f"{self.current_innings} has scored {self.inning_runs} for {self.inning_wickets}",
-                                        parent=self)
-                    messagebox.showinfo("End of the Match",
-                            f"{self.current_innings} has won by {runs_win} runs.", parent=self)
-                elif self.teamA_score < self.teamB_score:
-                    wickets_win = 10 - self.teamB_wickets
-                    messagebox.showinfo("End of the Match",
-                            f"{self.current_innings} has scored {self.inning_runs} for {self.inning_wickets}",
-                                        parent=self)
-                    messagebox.showinfo("End of the Match",
-                            f"{self.current_innings} has won by {wickets_win} wickets.", parent=self)
-
 # ------------------------------------------------- On Clicking X ------------------------------------------------------
     def on_click_x(self):
         confirm_x = messagebox.askyesno("Quit?", "Are you sure you want to quit?", parent=self)
@@ -238,8 +257,10 @@ class CoinTossForm(Toplevel):
         super().__init__()
 
         # Form Window Settings
+        x = main_window.winfo_x()
+        y = main_window.winfo_y()
+        self.geometry(f"300x200+{x}+{y}")
         self.title("Coin Toss")
-        self.geometry("300x200")
         self.resizable(False, False)
         self.config(bg='white')
         self.transient(main_window)
@@ -253,6 +274,8 @@ class CoinTossForm(Toplevel):
         self.innings_overs = match_details["match_overs"]
 
         self.main_window = main_window
+
+        self.protocol("WM_DELETE_WINDOW", self.do_nothing)
 
         fonter = ('Helvetica', 12, 'normal')
 
@@ -336,6 +359,9 @@ class CoinTossForm(Toplevel):
                 self.toss_coin(coin_side_selection)
 
         animate_gif(0)
+
+    def do_nothing(self):
+        pass
 
 # -------------------------------------------------- Run Program -------------------------------------------------------
 if __name__ == "__main__":
