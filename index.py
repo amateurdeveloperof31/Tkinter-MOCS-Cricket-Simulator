@@ -47,10 +47,11 @@ class BookCricket:
     def open_details_form(self):
         form = AddDetailForms(self.windows)
         self.windows.wait_window(form)
-        all_match_details = form.match_details
-        if all_match_details:
-            scoreboard_window = Scoreboarde(self, all_match_details)
-            self.windows.withdraw()
+        if hasattr(form, 'match_details'):
+            all_match_details = form.match_details
+            if all_match_details:
+                scoreboard_window = Scoreboarde(self, all_match_details)
+                self.windows.withdraw()
 
 # ----------------------------------------------- Match Details Form ---------------------------------------------------
 class AddDetailForms(Toplevel):
@@ -58,8 +59,11 @@ class AddDetailForms(Toplevel):
         super().__init__()
 
         # Form Window Settings
+        x = main_window.winfo_x()
+        y = main_window.winfo_y()
+        self.geometry(f"800x300+{x}+{y}")
+
         self.title("Match Details")
-        self.geometry("800x300")
         self.resizable(False, False)
         self.config(bg='white')
         self.transient(main_window)
@@ -141,8 +145,8 @@ class AddDetailForms(Toplevel):
 # -------------------------------------------------- Match Details -----------------------------------------------------
     def enter_match_details(self):
         self.match_overs = self.options[self.clicked.get()]
-        teamA_name = self.team1_name_entry.get()
-        teamB_name = self.team2_name_entry.get()
+        teamA_name = self.team1_name_entry.get().capitalize()
+        teamB_name = self.team2_name_entry.get().capitalize()
 
         if not teamA_name and not self.teamA_color:
             messagebox.showerror("No Team A Name / Color", "Enter Team A Name and Select a color!!")
@@ -150,8 +154,8 @@ class AddDetailForms(Toplevel):
         if not teamB_name and not self.teamB_color:
             messagebox.showerror("No Team B Name", "Enter Team B Name and Select a color!!!!")
             return
-        if self.teamA_color == self.teamB_color:
-            messagebox.showerror("Same Team Color", "Select Different Colours for Different Teams")
+        if (teamA_name == teamB_name) or (self.teamA_color == self.teamB_color):
+            messagebox.showerror("Same Team Color", "Select Different Names / Colours for Both Teams")
             return
         if teamA_name and self.teamA_color and teamB_name and self.teamB_color and self.match_overs:
             self.match_details = {
