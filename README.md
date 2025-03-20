@@ -1,4 +1,4 @@
-Book Cricket
+Cricket Simulator
 
 A digital version of the classic "Book Cricket" game, where two teams compete to score runs based on the random numbers.
 
