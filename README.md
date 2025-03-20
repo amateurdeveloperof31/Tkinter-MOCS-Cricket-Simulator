@@ -1,6 +1,6 @@
 Cricket Simulator
 
-A digital version of the classic "Book Cricket" game, where two teams compete to score runs based on the random numbers.
+A digital version of the classic "Book Cricket" game, where two teams compete to score runs based on the randomly generated runs.
 
 Features
 - Simple and intuitive interface
