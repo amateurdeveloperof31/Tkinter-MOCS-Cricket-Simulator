@@ -1,22 +1,20 @@
 # ----------------------------------------------------- Imports --------------------------------------------------------
 from tkinter import *
 from tkinter import messagebox
-from PIL import Image, ImageTk # Added By Me
+from PIL import Image, ImageTk
 import random
-
 # ------------------------------------------------ Global Variables ----------------------------------------------------
 width = 800
 height = 600
 
 main_bg = "#393939"
 gray_out_bg = "#cdcdcd"
-
 # --------------------------------------------------- Main Class -------------------------------------------------------
 class Scoreboarde(Toplevel):
     def __init__(self, main_window, all_match_details):
         super().__init__()
 
-        self.title("Book Cricket")
+        self.title("My Own Cricket Simulator")
         self.minsize(width,height)
         self.resizable(False, False)
         self.attributes("-topmost", True)
@@ -31,6 +29,7 @@ class Scoreboarde(Toplevel):
         self.teamA_color = all_match_details["teamA_color"]
         self.teamB_name = all_match_details["teamB_name"]
         self.teamB_color = all_match_details["teamB_color"]
+        self.match_name = all_match_details["match_name"]
         self.innings_overs = all_match_details["match_overs"]
 
         self.current_innnings = None
@@ -53,8 +52,8 @@ class Scoreboarde(Toplevel):
         # Match Type
         self.match_type_frame = Frame(self, bg=main_bg, width=width, height=75, relief=SUNKEN, border=2)
         self.match_type_frame.place(relx=0, rely=0)
-        self.match_type_label = Label(self.match_type_frame, text="MOBC", font=("arial", 40, "bold"), justify=CENTER,
-                                      bg=main_bg, fg="#ffff00")
+        self.match_type_label = Label(self.match_type_frame, text=self.match_name, font=("arial", 40, "bold"),
+                                      justify=CENTER, bg=main_bg, fg="#ffff00")
         self.match_type_label.place(relx=0.5, rely=0.5, anchor=CENTER)
 
         # Scoreboards
@@ -95,13 +94,12 @@ class Scoreboarde(Toplevel):
                                        font=("arial", 12, "bold"), justify=CENTER)
         self.teamB_overs_label.place(relx=0.9, rely=0.75, anchor=E)
 
-        # for child in self.teamB_frame.winfo_children():
-        #     child.configure(state=DISABLED)
-
-        self.coin_toss_button = Button(self, text="Coin Toss!!", width=20, command=self.open_coin_toss)
-        self.coin_toss_button.place(relx=0.5, rely=0.65, anchor=CENTER)
+        self.coin_toss_button = Button(self, text="Coin Toss!!", width=15, command=self.open_coin_toss, bg="#2c2c2c",
+                                       fg='white', font=("arial", 12, "bold"))
+        self.coin_toss_button.place(relx=0.5, rely=0.5, anchor=CENTER)
 
         # Versus Label
+
         self.versus_v_label = Label(self, text="V", font=("arial", 40, "bold"), justify=CENTER,
                                     bg=main_bg, fg="white")
         self.versus_v_label.place(relx=0.5, rely=0.2, anchor=CENTER)
@@ -171,10 +169,18 @@ class Scoreboarde(Toplevel):
                     self.current_innings = "teamB"
                     self.batting_team_name = self.teamB_name
                     self.bowling_team_name = self.teamA_name
+                    bat_x = 0.6
+                    ball_x = 0.4
                 else:
+                    bat_x = 0.4
+                    ball_x = 0.6
                     self.current_innings = "teamA"
                     self.batting_team_name = self.teamA_name
                     self.bowling_team_name = self.teamB_name
+
+                # Icons
+                self.main_window.bat_icon_label.place(relx=bat_x, rely=0.22, anchor=CENTER)
+                self.main_window.ball_icon_label.place(relx=ball_x, rely=0.22, anchor=CENTER)
 
                 self.bowling_team_score = self.batting_team_score
                 self.bowling_team_wickets = self.batting_team_wickets
@@ -210,6 +216,7 @@ class Scoreboarde(Toplevel):
                     wickets_win = 10 - self.batting_team_wickets
                     messagebox.showinfo("End of the Match",
                                     f"{self.batting_team_name} has won by {wickets_win} wickets.", parent=self)
+
 # ---------------------------------------------------- Scorer ----------------------------------------------------------
     def scorer(self):
             self.inning_balls += 1
@@ -293,8 +300,8 @@ class CoinTossForm(Toplevel):
                                       font=("arial", 14, "bold"), bg="white", justify=CENTER)
         self.toss_tocall_label.place(relx=0.5, rely=0.2, anchor=CENTER)
 
-        self.head_image = self.main_window.image_resier("images/head.jpg", 70)
-        self.tail_image = self.main_window.image_resier("images/tail.jpg", 70)
+        self.head_image = self.main_window.image_resier("images/head.png", 70)
+        self.tail_image = self.main_window.image_resier("images/tail.png", 70)
         self.head_button = Button(self, image=self.head_image, bg='white', activebackground='white',
                                   command=lambda:self.coin_toss_animation(0))
         self.head_button.place(relx=0.25, rely=0.7, anchor=CENTER)
@@ -370,6 +377,7 @@ if __name__ == "__main__":
         "teamA_color": "#8B0A1A",
         "teamB_name": "teamB",
         "teamB_color": "#00BFFF",
+        "match_name": "Duel 2",
         "match_overs": 10
     }
 
