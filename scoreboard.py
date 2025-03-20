@@ -369,20 +369,3 @@ class CoinTossForm(Toplevel):
 
     def do_nothing(self):
         pass
-
-# -------------------------------------------------- Run Program -------------------------------------------------------
-if __name__ == "__main__":
-    match_details = {
-        "teamA_name": "teamA",
-        "teamA_color": "#8B0A1A",
-        "teamB_name": "teamB",
-        "teamB_color": "#00BFFF",
-        "match_name": "Duel 2",
-        "match_overs": 10
-    }
-
-    root = Tk()
-    Scoreboarde(root, match_details)
-    root.mainloop()
-
-    # CoinTossForm(root, match_details)
