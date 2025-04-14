@@ -1,12 +1,12 @@
 Cricket Simulator
 
-A digital version of the classic "Book Cricket" game, where two teams compete to score runs based on the randomly generated runs.
+A Python-based cricket simulator that allows users to simulate a cricket match between two teams. The simulator includes features like coin toss, selection batting/bowling, and match result calculation.
 
 Features
-- Simple and intuitive interface
-- Supports two teams with customizable names and colors
-- Automatic scoring system
-- Option to select number of overs
+- Coin Toss: Simulate a coin toss to determine which team bats or bowls first.
+- Batting and Bowling: Simulate batting and bowling overs, with random runs scored and wickets taken.
+- Match Result: Calculate the match result based on the scores and display the winner.
+- Scoreboard: Display the team's scoreboard.
 
 Requirements
 - Python 3.x
@@ -14,8 +14,14 @@ Requirements
 
 Installation
 1. Clone the repository using git clone https://github.com/amateurdeveloperof31/Tkinter-Book-Cricket.git
-2. Navigate to the project directory using cd Book-Cricket
+2. Navigate to the project directory using cd Cricket-Simulator
 3. Run the game using python book_cricket.py
+
+Usage
+1. Launch the simulator and enter the team names and colors.
+2. Simulate the coin toss to determine which team bats or bowls first.
+3. Simulate the batting and bowling overs.
+4. The simulator will calculate the match result and display the winner.
 
 Images by Freepik
 - Main Image: https://www.freepik.com/free-vector/ipl-cricket-illustration-hand-drawn-style_20913083.htm#fromView=search&page=1&position=34&uuid=baaf010a-ce3a-4f99-8bbb-e9b5bab90bb3&query=cricket
@@ -32,6 +38,11 @@ Contributions are welcome! If you'd like to report a bug or suggest a feature, p
 
 License
 This project is licensed under the MIT License. See LICENSE.md for details.
+
+Upcoming (v1.1)
+- Improve GUI: Enhance the user interface to make it more user-friendly.
+- Add More Features: Add features like player statistics, team statistics, and more.
+- Improve Simulation: Improve the simulation algorithm to make it more realistic.
 
 Author
 amateurdeveloperof31
