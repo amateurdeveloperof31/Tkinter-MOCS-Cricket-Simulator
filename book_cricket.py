@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter import messagebox, ttk
 from scoreboard import Scoreboarde
 from PIL import Image, ImageTk
+from image_resizer import ImageResizer
 # ------------------------------------------------ Global Variables ----------------------------------------------------
 width = 800
 height = 600
@@ -24,24 +25,19 @@ class BookCricket:
         self.teamB = {}
         self.match_overs = None
 
-        self.main_image = Image.open("images/main.jpg")
-        aspect_ratio = self.main_image.height / self.main_image.width
-        widther = 500
-        self.main_image = self.main_image.resize((widther, int(widther * aspect_ratio)))
-        self.main_image = ImageTk.PhotoImage(self.main_image)
-
-        self.main_image_label = Label(self.windows, image=self.main_image, font=("arial", 40, "bold"), justify=CENTER,
-                                bg=main_bg, fg="white")
+        self.main_image = ImageResizer("assets/images/main.jpg", 500)
+        self.main_image_label = Label(self.windows, image=self.main_image.image, font=("arial", 40, "bold"),
+                                      justify=CENTER, bg=main_bg, fg="white")
         self.main_image_label.place(relx=0, rely=0.5, anchor=W)
 
         self.main_label = Label(self.windows, text="My Own\nCricket\nSimulator", font=("arial", 40, "bold"), justify=CENTER,
                                     bg=main_bg, fg="green")
         self.main_label.place(relx=0.8, rely=0.4, anchor=CENTER)
 
-        self.score_button = Button(self.windows, text="Play!!", width=10, command=self.open_details_form, bg="#6dbd25",
-                                   fg='white', activebackground="#6dbd25", font=("arial", 16, "bold"), height=2,
-                                   relief=FLAT, activeforeground="white")
-        self.score_button.place(relx=0.8, rely=0.75, anchor=CENTER)
+        self.start_button_image = ImageResizer("assets/images/start.png", 200)
+        self.start_button = Button(self.windows, image=self.start_button_image.image, bg='white',
+                                   activebackground="white", command=self.open_details_form, borderwidth=0)
+        self.start_button.place(relx=0.8, rely=0.75, anchor=CENTER)
 
         self.windows.mainloop()
 
