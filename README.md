@@ -27,7 +27,6 @@ Images by Freepik
 - Main Image: <a href="https://www.freepik.com/free-vector/ipl-cricket-illustration-hand-drawn-style_20913083.htm#fromView=search&page=1&position=34&uuid=baaf010a-ce3a-4f99-8bbb-e9b5bab90bb3&query=cricket">Image by freepik</a>
 - Ball Image: <a href="https://www.flaticon.com/free-icon/cricket-ball_12338815?term=cricket+bat&page=1&position=22&origin=search&related_id=12338815" title="cricket ball icons">Cricket ball icons created by Candy Design - Flaticon</a>
 - Bat Image: <a href="https://www.flaticon.com/free-icon/cricket-bat_6275116?term=cricket+bat&page=1&position=37&origin=search&related_id=6275116" title="cricket ball icons">Cricket bat icons created by Freepik - Flaticon</a>
-Cricket bat icons created by Freepik - Flaticon
 - Coin Image: <a href="https://www.freepik.com/free-vector/golden-cryptocurrency-coin-vector-illustration_414135258.htm#fromView=search&page=1&position=0&uuid=fcf5543c-f872-4324-8dd1-279c4fab4437&query=coin+head">Image by brgfx on Freepik</a>
 - Start Button: <a href="https://www.freepik.com/free-vector/collection-watercolor-rough-texture-background-with-brush-stroke-effect_381370440.htm#fromView=search&page=6&position=20&uuid=f0a27397-8c8b-4336-84b5-64998a7430b6&query=splash">Image by starline on Freepik</a>
 
