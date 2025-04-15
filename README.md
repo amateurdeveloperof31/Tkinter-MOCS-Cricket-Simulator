@@ -24,8 +24,7 @@ Usage
 4. The simulator will calculate the match result and display the winner.
 
 Images by Freepik
-- Main Image: https://www.freepik.com/free-vector/ipl-cricket-illustration-hand-drawn-style_20913083.htm#fromView=search&page=1&position=34&uuid=baaf010a-ce3a-4f99-8bbb-e9b5bab90bb3&query=cricket
-Image by freepik
+- Main Image: <a href="https://www.freepik.com/free-vector/ipl-cricket-illustration-hand-drawn-style_20913083.htm#fromView=search&page=1&position=34&uuid=baaf010a-ce3a-4f99-8bbb-e9b5bab90bb3&query=cricket">Image by freepik</a>
 - Ball Image: https://www.flaticon.com/free-icon/cricket-ball_12338815?term=cricket+bat&page=1&position=22&origin=search&related_id=12338815
 Cricket ball icons created by Candy Design - Flaticon
 - Bat Image: https://www.flaticon.com/free-icon/cricket-bat_6275116?term=cricket+bat&page=1&position=37&origin=search&related_id=6275116
