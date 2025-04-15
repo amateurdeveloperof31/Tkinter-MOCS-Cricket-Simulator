@@ -9,6 +9,7 @@ width = 800
 height = 600
 
 main_bg = "#393939"
+button_bg = "#2c2c2c"
 gray_out_bg = "#cdcdcd"
 
 team_colors = ["#8B0A1A","#00BFFF","#FFC400","#8F9779","#C51077","#F7DC6F","#2E865F","#A291FF","#FF99CC","#34A85A"]
@@ -104,9 +105,9 @@ class Scoreboarde(Toplevel):
                                        font=("arial", 12, "bold"), justify=CENTER, bg='white')
         self.teamB_overs_label.place(relx=0.9, rely=0.75, anchor=E)
 
-        self.match_details_button = Button(self, text="Start", width=15, bg="#2c2c2c", fg='white',
+        self.main_play_button = Button(self, text="Start", width=15, bg="#2c2c2c", fg='white',
                                     command=lambda: self.open_details_form("match_details"),font=("arial", 12, "bold"))
-        self.match_details_button.place(relx=0.5, rely=0.5, anchor=CENTER)
+        self.main_play_button.place(relx=0.5, rely=0.5, anchor=CENTER)
 
         # Versus Label
 
@@ -120,14 +121,12 @@ class Scoreboarde(Toplevel):
 
 # ------------------------------------------------ Further Widgets -----------------------------------------------------
     def widgets_continued(self, toss_winner, bat_ball_selection):
-        self.match_details_button.destroy()
-
         # Score
         self.score_label = Label(self, width=5, height=1, font=("arial", 35, "bold"), justify=CENTER)
         self.score_label.place(relx=0.5, rely=0.55, anchor=CENTER)
 
-        self.score_button = Button(self, text="Play!!", width=20, command=self.checker)
-        self.score_button.place(relx=0.5, rely=0.65, anchor=CENTER)
+        self.main_play_button.config(text="Play!!", command=self.checker)
+        self.main_play_button.place(relx=0.5, rely=0.65, anchor=CENTER)
 
         self.score_timeline_label = Label(self, text="Timeline", bg='white')
         self.score_timeline_label.place(relx=0.5, rely=0.9, anchor=CENTER)
@@ -149,11 +148,11 @@ class Scoreboarde(Toplevel):
             ball_x = 0.4
 
         # Icons
-        self.bat_image = ImageResizer("images/bat.png", 40)
+        self.bat_image = ImageResizer("assets/images/bat.png", 40)
         self.bat_icon_label = Label(self, image=self.bat_image.image, bg='white')
         self.bat_icon_label.place(relx=bat_x, rely=0.22, anchor=CENTER)
 
-        self.ball_image = ImageResizer("images/ball.png", 40)
+        self.ball_image = ImageResizer("assets/images/ball.png", 40)
         self.ball_icon_label = Label(self, image=self.ball_image.image, bg='white')
         self.ball_icon_label.place(relx=ball_x, rely=0.22, anchor=CENTER)
 
@@ -211,7 +210,7 @@ class Scoreboarde(Toplevel):
                             f"{self.batting_team_name} has scored {self.inning_runs} for {self.inning_wickets}",
                                     parent=self)
 
-                self.score_button.config(state=DISABLED)
+                self.main_play_button.config(state=DISABLED)
                 self.teamB_score = self.inning_runs
 
                 if self.bowling_team_score > self.batting_team_score:
@@ -283,7 +282,7 @@ class Scoreboarde(Toplevel):
 
         print(f"Total Balls: {self.total_balls}, Total Overs: {self.match_details['match_overs']}")
 
-        self.match_details_button.config(text="Coin Toss", command=lambda: self.open_details_form("coin_toss"))
+        self.main_play_button.config(text="Coin Toss", command=lambda: self.open_details_form("coin_toss"))
 
 # ----------------------------------------------- Match Details Form ---------------------------------------------------
 class AddDetailForms(Toplevel):
@@ -457,8 +456,8 @@ class CoinTossForm(Toplevel):
                                       font=("arial", 14, "bold"), bg="white", justify=CENTER)
         self.toss_tocall_label.place(relx=0.5, rely=0.2, anchor=CENTER)
 
-        self.head_image = ImageResizer("images/head.png", 70)
-        self.tail_image = ImageResizer("images/tail.png", 70)
+        self.head_image = ImageResizer("assets/images/head.png", 70)
+        self.tail_image = ImageResizer("assets/images/tail.png", 70)
         self.head_button = Button(self, image=self.head_image.image, bg='white', activebackground='white',
                                   command=lambda:self.coin_toss_animation(0))
         self.head_button.place(relx=0.25, rely=0.7, anchor=CENTER)
@@ -488,12 +487,12 @@ class CoinTossForm(Toplevel):
             toss_winner = self.teamA_name
         self.toss_tocall_label.config(text=f"It's {toss_result}!!\n {toss_winner} wins the toss!!")
 
-        self.bat_image = ImageResizer("images/bat.png", 70)
+        self.bat_image = ImageResizer("assets/images/bat.png", 70)
         self.bat_button = Button(self, image=self.bat_image.image, bg='white', activebackground='white',
                                   command=lambda: self.choose_to_bat_ball(toss_winner, "bat"))
         self.bat_button.place(relx=0.25, rely=0.7, anchor=CENTER)
 
-        self.ball_image = ImageResizer("images/ball.png", 70)
+        self.ball_image = ImageResizer("assets/images/ball.png", 70)
         self.ball_button = Button(self, image=self.ball_image.image, bg='white', activebackground='white',
                                   command=lambda: self.choose_to_bat_ball(toss_winner, "bowl"))
         self.ball_button.place(relx=0.75, rely=0.7, anchor=CENTER)
@@ -508,7 +507,7 @@ class CoinTossForm(Toplevel):
         self.head_button.destroy()
         self.tail_button.destroy()
 
-        gif = Image.open('images/coinToss.gif')
+        gif = Image.open('assets/images/coinToss.gif')
         frames = []
         for i in range(gif.n_frames):
             gif.seek(i)
