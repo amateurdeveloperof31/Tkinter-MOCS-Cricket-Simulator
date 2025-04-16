@@ -1,6 +1,6 @@
 # ----------------------------------------------------- Imports --------------------------------------------------------
 from tkinter import *
-from scoreboard import Scoreboarde, main_text_color
+from scoreboard import Scoreboarde
 from image_resizer import ImageResizer
 # ------------------------------------------------ Global Variables ----------------------------------------------------
 width = 800
