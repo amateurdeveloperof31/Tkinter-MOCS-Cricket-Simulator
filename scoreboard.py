@@ -11,7 +11,6 @@ height = 600
 
 main_bg = "#393939"
 button_bg = "#2c2c2c"
-gray_out_bg = "#cdcdcd"
 main_text_color = "#35b690"
 
 team_colors = ["#8B0A1A","#00BFFF","#FFC400","#8F9779","#C51077","#F7DC6F","#2E865F","#A291FF","#FF99CC","#34A85A"]
@@ -113,7 +112,7 @@ class Scoreboarde(Toplevel):
                                        font=("arial", 12, "bold"), justify=CENTER, bg='white')
         self.teamB_overs_label.place(relx=0.9, rely=0.75, anchor=E)
 
-        self.main_play_button = Button(self, text="Start", width=15, bg="#2c2c2c", fg='white',
+        self.main_play_button = Button(self, text="Start", width=15, bg=button_bg, fg='white',
                                     command=lambda: self.open_details_form("match_details"),font=("arial", 12, "bold"))
         self.main_play_button.place(relx=0.5, rely=0.5, anchor=CENTER)
 
@@ -133,15 +132,17 @@ class Scoreboarde(Toplevel):
         self.bat_ball_selection = bat_ball_selection
 
         # Score
-        self.score_label = Label(self, width=5, height=1, font=("arial", 35, "bold"), justify=CENTER)
+        self.score_label = Label(self, width=5, height=1, font=("arial", 35, "bold"), justify=CENTER, bg=main_bg,
+                                 fg='white')
         self.score_label.place(relx=0.5, rely=0.55, anchor=CENTER)
 
         self.main_play_button.config(text="Play!!", command=self.checker)
         self.main_play_button.place(relx=0.5, rely=0.65, anchor=CENTER)
 
-        self.score_timeline_label = Label(self, text="Timeline", bg='white')
+        self.score_timeline_label = Label(self, text="Timeline", bg=main_bg, fg='white')
         self.score_timeline_label.place(relx=0.5, rely=0.9, anchor=CENTER)
-        self.score_timeline = Text(self, width=50, height=1, font=("arial", 14, "bold"), state=DISABLED)
+        self.score_timeline = Text(self, width=50, height=1, font=("arial", 14, "bold"), state=DISABLED, bg=main_bg,
+                                   fg='white')
         self.score_timeline.place(relx=0.5, rely=0.95, anchor=CENTER)
 
         if ((toss_winner == self.match_details['teamA_name'] and bat_ball_selection == "bat") or
@@ -302,6 +303,8 @@ class Scoreboarde(Toplevel):
 
             self.score_timeline.config(state=NORMAL)
             self.score_timeline.insert(END, f"{ball_score} ")
+            if self.inning_balls % 6 == 0:
+                self.score_timeline.insert(END, " | ")
             self.score_timeline.config(state=DISABLED)
 
 # ------------------------------------------------- On Clicking X ------------------------------------------------------
@@ -369,7 +372,7 @@ class AddDetailForms(Toplevel):
         self.scoreboards_frame.place(relx=0, rely=0)
 
         # Team A
-        self.team1_frame = Frame(self.scoreboards_frame, bg="#1c1c1c", width=width - (width / 2), height=200,
+        self.team1_frame = Frame(self.scoreboards_frame, bg=form_secondary, width=width - (width / 2), height=200,
                                  relief=SUNKEN, border=2)
         self.team1_frame.place(relx=0, rely=0)
 
@@ -392,7 +395,7 @@ class AddDetailForms(Toplevel):
             x += 0.05
 
         # Team B
-        self.team2_frame = Frame(self.scoreboards_frame, bg="#1c1c1c", width=width - (width / 2), height=200,
+        self.team2_frame = Frame(self.scoreboards_frame, bg=form_secondary, width=width - (width / 2), height=200,
                                  relief=SUNKEN, border=2)
         self.team2_frame.place(relx=0.5, rely=0)
 
