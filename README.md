@@ -11,6 +11,7 @@ Features
 Requirements
 - Python 3.x
 - Tkinter library
+- MongoDB
 
 Installation
 1. Clone the repository using git clone [https://github.com/amateurdeveloperof31/Tkinter-Book-Cricket.git](https://github.com/amateurdeveloperof31/Tkinter-MOCS-Cricket-Simulator.git)
