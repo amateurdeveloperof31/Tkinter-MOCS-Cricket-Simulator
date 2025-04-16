@@ -4,7 +4,7 @@ from tkinter import ttk, messagebox
 from image_resizer import ImageResizer
 from PIL import Image, ImageTk
 import random
-from database import CricketDatabase
+from config.database import CricketDatabase
 # ------------------------------------------------ Global Variables ----------------------------------------------------
 width = 800
 height = 600
