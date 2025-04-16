@@ -37,10 +37,5 @@ Contributions are welcome! If you'd like to report a bug or suggest a feature, p
 License
 This project is licensed under the MIT License. See LICENSE.md for details.
 
-Upcoming (v1.2)
-- Improve GUI: Enhance the user interface to make it more user-friendly.
-- Add More Features: Add features like player statistics, team statistics, and more.
-- Improve Simulation: Improve the simulation algorithm to make it more realistic.
-
 Author
 amateurdeveloperof31
