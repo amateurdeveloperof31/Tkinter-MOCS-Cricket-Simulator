@@ -31,6 +31,15 @@ Images by Freepik
 - Coin Image: <a href="https://www.freepik.com/free-vector/golden-cryptocurrency-coin-vector-illustration_414135258.htm#fromView=search&page=1&position=0&uuid=fcf5543c-f872-4324-8dd1-279c4fab4437&query=coin+head">Image by brgfx on Freepik</a>
 - Start Button: <a href="https://www.freepik.com/free-vector/collection-watercolor-rough-texture-background-with-brush-stroke-effect_381370440.htm#fromView=search&page=6&position=20&uuid=f0a27397-8c8b-4336-84b5-64998a7430b6&query=splash">Image by starline on Freepik</a>
 
+Version History
+- Version 1.0 (Stable Release): Initial release
+- Version 1.1 (Stable Release): Added database support for storing match data
+- Upcoming Features (v1.2)
+  - Improve GUI: Enhance the user interface to make it more user-friendly
+  - Add More Features: User statistics, Player statistics, Team statistics, Additional features to enhance gameplay
+  - Improve Simulation: Refine the simulation algorithm to make it more realistic and immersive
+
+
 Contributing
 Contributions are welcome! If you'd like to report a bug or suggest a feature, please open an issue.
 
