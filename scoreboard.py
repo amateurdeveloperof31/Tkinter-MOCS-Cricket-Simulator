@@ -1,9 +1,6 @@
 # ----------------------------------------------------- Imports --------------------------------------------------------
 from tkinter import *
 from tkinter import ttk, messagebox
-
-from pymongo.synchronous.database import Database
-
 from image_resizer import ImageResizer
 from PIL import Image, ImageTk
 import random
