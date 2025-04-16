@@ -37,6 +37,12 @@ Contributions are welcome! If you'd like to report a bug or suggest a feature, p
 License
 This project is licensed under the MIT License. See LICENSE.md for details.
 
+Versions
+- Version 1.0 (Stable Release)
+    - Initial Release
+- Version 1.1 (Stable Release)
+    - Added Database Support
+
 Upcoming (v1.2)
 - Improve GUI: Enhance the user interface to make it more user-friendly.
 - Add More Features: Add features like player statistics, team statistics, and more.
