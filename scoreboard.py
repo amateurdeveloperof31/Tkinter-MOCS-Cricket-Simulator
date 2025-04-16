@@ -250,34 +250,7 @@ class Scoreboarde(Toplevel):
                 else:
                     messagebox.showinfo("End of the Match", f"Scores are Level. Match Tied!!", parent=self)
 
-                score_dict = {
-                    "match_name": self.match_details["match_name"],
-                    "match_overs": self.match_details["match_overs"],
-                    "toss": self.toss_winner,
-                    "choice": self.bat_ball_selection,
-                    "teamA_name": self.match_details["teamA_name"],
-                    "teamA_color": self.match_details["teamA_color"],
-                    "teamA_runs": self.match_details["teamA_runs"],
-                    "teamA_wickets": self.match_details["teamA_wickets"],
-                    "teamA_balls": self.match_details["teamA_balls"],
-                    "teamB_name": self.match_details["teamB_name"],
-                    "teamB_color": self.match_details["teamB_color"],
-                    "teamB_runs": self.match_details["teamB_runs"],
-                    "teamB_wickets": self.match_details["teamB_wickets"],
-                    "teamB_balls": self.match_details["teamB_balls"]
-                }
-
-                cricketDatabase = CricketDatabase()
-
-                try:
-                    cricketDatabase.connect()
-                    database_rec = cricketDatabase.db_column.insert_one(score_dict)
-                except Exception as e:
-                    print("Database Error:", e)
-                else:
-                    cricketDatabase.close()
-                    messagebox.showinfo("Match Saved", "Match saved to the database. Thanks for Playing!!",
-                                        parent=self)
+            messagebox.showinfo("Match Ended", "Thanks for Playing!!", parent=self)
 
 # ---------------------------------------------------- Scorer ----------------------------------------------------------
     def scorer(self):
