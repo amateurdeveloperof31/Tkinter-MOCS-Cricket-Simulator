@@ -1,9 +1,13 @@
 # ----------------------------------------------------- Imports --------------------------------------------------------
 from tkinter import *
 from tkinter import ttk, messagebox
+
+from pymongo.synchronous.database import Database
+
 from image_resizer import ImageResizer
 from PIL import Image, ImageTk
 import random
+from database import CricketDatabase
 # ------------------------------------------------ Global Variables ----------------------------------------------------
 width = 800
 height = 600
@@ -11,6 +15,7 @@ height = 600
 main_bg = "#393939"
 button_bg = "#2c2c2c"
 gray_out_bg = "#cdcdcd"
+main_text_color = "#35b690"
 
 team_colors = ["#8B0A1A","#00BFFF","#FFC400","#8F9779","#C51077","#F7DC6F","#2E865F","#A291FF","#FF99CC","#34A85A"]
 default_color1 = "#8B0A1A"
@@ -36,8 +41,14 @@ class Scoreboarde(Toplevel):
         self.match_details = {
             "teamA_name": None,
             "teamA_color": None,
+            "teamA_runs": None,
+            "teamA_wickets": None,
+            "teamA_balls": None,
             "teamB_name": None,
             "teamB_color": None,
+            "teamB_runs": None,
+            "teamB_wickets": None,
+            "teamB_balls": None,
             "match_name": None,
             "match_overs": None
         }
@@ -64,7 +75,7 @@ class Scoreboarde(Toplevel):
         self.match_type_frame = Frame(self, bg=main_bg, width=width, height=75, relief=SUNKEN, border=2)
         self.match_type_frame.place(relx=0, rely=0)
         self.match_type_label = Label(self.match_type_frame, text="MOCS", font=("arial", 40, "bold"),
-                                      justify=CENTER, bg=main_bg, fg="#ffff00")
+                                      justify=CENTER, bg=main_bg, fg=main_text_color)
         self.match_type_label.place(relx=0.5, rely=0.5, anchor=CENTER)
 
         # Scoreboards
@@ -121,6 +132,9 @@ class Scoreboarde(Toplevel):
 
 # ------------------------------------------------ Further Widgets -----------------------------------------------------
     def widgets_continued(self, toss_winner, bat_ball_selection):
+        self.toss_winner = toss_winner
+        self.bat_ball_selection = bat_ball_selection
+
         # Score
         self.score_label = Label(self, width=5, height=1, font=("arial", 35, "bold"), justify=CENTER)
         self.score_label.place(relx=0.5, rely=0.55, anchor=CENTER)
@@ -175,6 +189,9 @@ class Scoreboarde(Toplevel):
                     self.current_innings = "teamB"
                     self.batting_team_name = self.match_details['teamB_name']
                     self.bowling_team_name = self.match_details['teamA_name']
+                    self.match_details["teamA_runs"] = self.inning_runs
+                    self.match_details["teamA_wickets"] = self.inning_wickets
+                    self.match_details["teamA_balls"] = self.inning_balls
                     bat_x = 0.6
                     ball_x = 0.4
                 else:
@@ -183,6 +200,9 @@ class Scoreboarde(Toplevel):
                     self.current_innings = "teamA"
                     self.batting_team_name = self.match_details['teamA_name']
                     self.bowling_team_name = self.match_details['teamB_name']
+                    self.match_details["teamB_runs"] = self.inning_runs
+                    self.match_details["teamB_wickets"] = self.inning_wickets
+                    self.match_details["teamB_balls"] = self.inning_balls
 
                 # Icons
                 self.bat_icon_label.place(relx=bat_x, rely=0.22, anchor=CENTER)
@@ -213,6 +233,15 @@ class Scoreboarde(Toplevel):
                 self.main_play_button.config(state=DISABLED)
                 self.teamB_score = self.inning_runs
 
+                if self.current_innings == "teamA":
+                    self.match_details["teamA_runs"] = self.inning_runs
+                    self.match_details["teamA_wickets"] = self.inning_wickets
+                    self.match_details["teamA_balls"] = self.inning_balls
+                else:
+                    self.match_details["teamB_runs"] = self.inning_runs
+                    self.match_details["teamB_wickets"] = self.inning_wickets
+                    self.match_details["teamB_balls"] = self.inning_balls
+
                 if self.bowling_team_score > self.batting_team_score:
                     runs_win = self.bowling_team_score - self.batting_team_score
                     messagebox.showinfo("End of the Match",
@@ -221,6 +250,37 @@ class Scoreboarde(Toplevel):
                     wickets_win = 10 - self.batting_team_wickets
                     messagebox.showinfo("End of the Match",
                                     f"{self.batting_team_name} has won by {wickets_win} wickets.", parent=self)
+                else:
+                    messagebox.showinfo("End of the Match", f"Scores are Level. Match Tied!!", parent=self)
+
+                score_dict = {
+                    "match_name": self.match_details["match_name"],
+                    "match_overs": self.match_details["match_overs"],
+                    "toss": self.toss_winner,
+                    "choice": self.bat_ball_selection,
+                    "teamA_name": self.match_details["teamA_name"],
+                    "teamA_color": self.match_details["teamA_color"],
+                    "teamA_runs": self.match_details["teamA_runs"],
+                    "teamA_wickets": self.match_details["teamA_wickets"],
+                    "teamA_balls": self.match_details["teamA_balls"],
+                    "teamB_name": self.match_details["teamB_name"],
+                    "teamB_color": self.match_details["teamB_color"],
+                    "teamB_runs": self.match_details["teamB_runs"],
+                    "teamB_wickets": self.match_details["teamB_wickets"],
+                    "teamB_balls": self.match_details["teamB_balls"]
+                }
+
+                cricketDatabase = CricketDatabase()
+
+                try:
+                    cricketDatabase.connect()
+                    database_rec = cricketDatabase.db_column.insert_one(score_dict)
+                except Exception as e:
+                    print("Database Error:", e)
+                else:
+                    cricketDatabase.close()
+                    messagebox.showinfo("Match Saved", "Match saved to the database. Thanks for Playing!!",
+                                        parent=self)
 
 # ---------------------------------------------------- Scorer ----------------------------------------------------------
     def scorer(self):
@@ -279,8 +339,6 @@ class Scoreboarde(Toplevel):
         self.versus_s_label.config(bg=self.match_details["teamB_color"])
 
         self.total_balls = self.match_details["match_overs"] * 6
-
-        print(f"Total Balls: {self.total_balls}, Total Overs: {self.match_details['match_overs']}")
 
         self.main_play_button.config(text="Coin Toss", command=lambda: self.open_details_form("coin_toss"))
 
