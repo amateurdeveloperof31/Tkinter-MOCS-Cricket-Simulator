@@ -42,11 +42,10 @@ Versions
     - Initial Release
 - Version 1.1 (Stable Release)
     - Added Database Support
-
-Upcoming (v1.2)
-- Improve GUI: Enhance the user interface to make it more user-friendly.
-- Add More Features: Add features like player statistics, team statistics, and more.
-- Improve Simulation: Improve the simulation algorithm to make it more realistic.
+- Upcoming (v1.2)
+    - Improve GUI: Enhance the user interface to make it more user-friendly.
+    - Add More Features: Add features like player statistics, team statistics, and more.
+    - Improve Simulation: Improve the simulation algorithm to make it more realistic.
 
 Author
 amateurdeveloperof31
