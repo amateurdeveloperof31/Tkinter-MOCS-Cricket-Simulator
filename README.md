@@ -1,6 +1,6 @@
 Cricket Simulator
 
-A Python-based cricket simulator that allows users to simulate a cricket match between two teams. The simulator includes features like coin toss, selection batting/bowling, and match result calculation.
+A Python-based cricket simulator that allows users to simulate a cricket match between two teams. The simulator includes features like coin toss, selection batting/bowling, match result calculation, and database save.
 
 Features
 - Coin Toss: Simulate a coin toss to determine which team bats or bowls first.
